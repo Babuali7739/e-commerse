@@ -11,19 +11,29 @@ const getDefaultCart =()=>{
     return cart;
 }
 const ShopContextProvider = (props) =>{
-    const [all_product,setAll_Product] = useState([]);
+    const [all_product,setAll_Product] = useState(() => {
+        // Load products from localStorage if available
+        const storedProducts = localStorage.getItem('all_product');
+        return storedProducts ? JSON.parse(storedProducts) : [];
+    });
+
     const [cartItems,setCartItems] = useState(getDefaultCart());
 
     useEffect(()=>{
-        fetch('http://localhost:8000/allproducts')
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
-            return response.json();
-        })
-        .then((data) => setAll_Product(data))
-        .catch((error) => console.error('Error fetching products:', error));
+           if (all_product.length === 0) {
+            fetch('http://localhost:8000/allproducts')
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch products');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    setAll_Product(data);
+                    localStorage.setItem('all_product', JSON.stringify(data)); // Save to localStorage
+                })
+                .catch((error) => console.error('Error fetching products:', error));
+        }
         
 
         if(localStorage.getItem('auth-token')){
