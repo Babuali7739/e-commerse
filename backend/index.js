@@ -15,7 +15,7 @@ const { Console, error } = require("console");
 app.use(express.json());
 app.use(cors(
     // {
-    //     origin:["http://localhost:8000"],
+    //     origin:["https://e-commerse-rosy.vercel.app/"],
     //     methods:["POST","GET"],
     //     credentials: true
 
