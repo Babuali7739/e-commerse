@@ -5,6 +5,7 @@ import cross_icon from '../../assets/cross_icon.png'
 const ListProduct = () => {
 
     const [allproducts,setAllPrducts] = useState([]);
+
     const fetchInfo = async ()=>{
       await fetch('http://localhost:8000/allproducts')
       .then((res)=>res.json())
@@ -13,7 +14,7 @@ const ListProduct = () => {
 
     useEffect(()=>{
       fetchInfo();
-    },[])
+    },[]);
 
     const removeinfo = async (id)=>{
       await fetch('http://localhost:8000/removeproduct',

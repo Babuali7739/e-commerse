@@ -94,6 +94,27 @@
 .productdisplay-right-category span{
     font-weight: 600;
 }
+.size-option {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.size-option.selected {
+    background-color: white; /* Change to your preferred color */
+    color: black;
+    border-color: #371500;
+}
+
+.size-option:hover {
+    background-color:white; /* Optional: A subtle hover effect */
+}
+
+
+
 @media (max-width:800px) {
     body{
         overflow-x: hidden;

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext,useState } from 'react'
 import './ProductDisplay.css'
 import star_icon from '../Assets/star_icon.png';
 import star_dull_icon from '../Assets/star_dull_icon.png'
@@ -8,6 +8,12 @@ import { ShopContext } from '../../context/ShopContext';
 export const ProductDisplay = (props) => {
     const {product} = props;
     const {addToCart} = useContext(ShopContext);
+
+    const [selectedSize, setSelectedSize] = useState(null); // State to track selected size
+
+    const handleSizeClick = (size) => {
+        setSelectedSize(size);
+    };
   return (
     <div className='productdisplay'>
         <div className="productdisplay-left">
@@ -45,16 +51,20 @@ export const ProductDisplay = (props) => {
             <div className="productdisplay-right-size">
                 <h1>Select Size</h1>
                 <div className="productdisplay-right-sizes">
-                    <div>S</div>
-                    <div>M</div>
-                    <div>L</div>
-                    <div>XL</div>
-                    <div>XXL</div>
+                {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
+                            <div
+                                key={size}
+                                className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                                onClick={() => handleSizeClick(size)}
+                            >
+                                {size}
+                            </div>
+                        ))}
                 </div>
             </div>
             <button onClick={()=>{addToCart(product.id)}}>ADD TO CART</button>
-            <p className='productdisplay-right-category'><span>Category :</span> Women,T-shirt,Crop Top</p>
-            <p className='productdisplay-right-category'><span>Tags :</span> Modern,Letest</p>
+            <p className='productdisplay-right-category'><span>Category :</span>  {product.category}</p>
+            <p className='productdisplay-right-category'><span>Tags :</span>  #{product.name.slice(0,20)}</p>
 
         </div>
     </div>

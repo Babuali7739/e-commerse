@@ -1,3 +1,12 @@
+/* .navbar.light {
+  background-color: white;
+  color: black;
+}
+
+.navbar.dark {
+  background-color: black;
+  color: white;
+} */
 .navbar{
     display: flex;
     align-items: center;
@@ -10,9 +19,92 @@
 .nav-logo{
     width: 200px;
 }
-.nav-profile{
-    width: 75px;
+.navprofile{
+  width: 70px;
 }
+.loginmenu{
+  position: fixed;
+  position: absolute;
+  height: auto;
+  padding: 5px 0px;
+  width: 250px;
+  background: #ffff;
+  border-radius: 10px;
+  top: 90px;
+  right: 8%;
+  box-shadow:2px 2px 8px rgba(0, 0, 0, .4);
+}
+.menusidebar{
+  display:flex;
+  padding: 0px 15px;
+  gap: 20px;
+}
+.theme{
+  cursor: pointer;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 8px;
+  padding:0px 20px;
+  height: 40px;
+  align-items: center;
+  font-size: 18px;
+  transition: all 0.5s;
+}
+.theme:hover{
+  background: #F2F2F2;
+}
+.search{
+   width:400px;
+   height: 40px;
+   padding: 0 10px;
+   border: 1px solid transparent;
+   border-radius: 20px;
+   box-shadow:2px 2px 8px rgba(0, 0, 0, .4);
+}
+.search:focus{
+  outline: none;
+  border: 1px solid #b94111;
+
+}
+.icon{
+    margin-left: -10%;
+}
+.search-container {
+    position: relative;
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 70px;
+    left: 40%;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px 10px;
+    border-radius: 10px;
+    width: 400px;
+    height: 400px;
+    overflow-y: hidden;
+    text-align: center;
+    overflow-y: scroll;
+
+    
+    
+  }
+  .result{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    gap: 30px;
+    cursor: pointer;
+  }
+  .search-item img{
+    width: 80px;
+  }
+  
+  .search-item:hover {
+    color: #b94111;
+  }
+  
 @media(max-width:800px){
     .navbar{
         padding: 15px 30px;
@@ -23,4 +115,21 @@
     .nav-profile{
         width: 60px;
     }
+    .search{
+        width:300px;
+     }
+     .icon{
+         margin-left: -10%;
+     }
+     .search-results {
+        top: 70px;
+        left: 26%;
+        width: 350px;
+        height: 400px;
+      }
+      .loginmenu{
+        right: 0;
+        width: 200px;
+        position: absolute;
+      }
 }

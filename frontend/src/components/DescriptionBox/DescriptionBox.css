@@ -19,7 +19,7 @@
     background: #fbfbfb;
     color: #555;
 }
-.descriptionbox-description{
+.descriptionbox-container{
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -27,6 +27,13 @@
     padding: 48px;
     padding-bottom: 70px;
 }
+
+
+.descriptionbox-nav-box:hover {
+    background-color: #f0f0f0;
+    color: black; 
+}
+
 @media (max-width:800px) {
     .descriptionbox{
         overflow: hidden;

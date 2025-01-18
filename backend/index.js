@@ -13,7 +13,14 @@ const { Console, error } = require("console");
 
 // creat connection with mongodb
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+    {
+        origin:["https://e-commerse-rosy.vercel.app"],
+        methods:["POST","GET"],
+        credentials: true
+
+    }
+));
 mongoose.connect("mongodb://localhost:27017/ecommerce").then(()=>{
     console.log("monggose conneted");
 })
@@ -130,8 +137,97 @@ const Users = mongoose.model('Users', {
         default:Date.now,
     },
 })
+    // schemma for admin
+    const Admin = mongoose.model("Admin", {
+        username: {
+        type: String,
+        required: true,
+        unique: true,
+        },
+        password: {
+        type: String,
+        required: true,
+        },
+        email:{
+            type: String,
+            required: true,
+            unique:true,
+        }
+    });
 
-// creating endpoint for registering the user
+    // Admin login endpoint
+    app.post('/admin/login', async (req, res) => {
+        const { email, password,} = req.body;
+    
+        try {
+        // Check if admin exists
+        let admin = await Admin.findOne({ email });
+        if (!admin) {
+            return res.status(400).json({ success: false, error: "Invalid Username" });
+        }
+    
+        // Validate password
+        const isPasswordValid = password === admin.password;
+        if (!isPasswordValid) {
+            return res.status(400).json({ success: false, error: "Invalid Password" });
+        }
+    
+        // Create JWT token for admin
+        const data = {
+            admin: {
+            id: admin.id,
+            },
+        };
+        const token = jwt.sign(data, 'secret_admin_key'); // Sign token with secret key
+        res.json({ success: true, token });
+        } catch (error) {
+        console.error('Admin login error:', error);
+        res.status(500).json({ success: false, error: 'Internal server error' });
+        }
+    });
+    
+
+    // Create a new admin (for testing or manually adding admins)
+    app.post('/admin/create', async (req, res) => {
+        const { username, password,email} = req.body;
+    
+        try {
+        let admin = new Admin({
+            username,
+            password,
+            email,  // In production, consider hashing the password using bcrypt
+        });
+        
+        await admin.save();
+        res.json({ success: true, message: "Admin created successfully" });
+        } catch (error) {
+        console.error('Error creating admin:', error);
+        res.status(500).json({ success: false, error: 'Internal server error' });
+        }
+    });
+    
+
+    // Middleware for admin authentication
+    const fetchAdmin = (req, res, next) => {
+        const token = req.header('auth-token');
+        if (!token) {
+        return res.status(401).send({ error: "Please authenticate using a valid token" });
+        }
+        try {
+        const data = jwt.verify(token, 'secret_admin_key'); // Use the same secret used in login
+        req.admin = data.admin;
+        next();
+        } catch (error) {
+        return res.status(401).send({ error: "Please authenticate using a valid token" });
+        }
+    };
+    
+    // Protected admin route
+    app.get('/admin/dashboard', fetchAdmin, (req, res) => {
+        res.send("Welcome to Admin Dashboard");
+    });
+    
+    // creating endpoint for registering the user
 
 app.post('/signup',async (req,res)=>{
     let check = await Users.findOne({email:req.body.email});
@@ -183,7 +279,6 @@ app.post('/login',async (req,res)=>{
         res.json({success:false,error:"Wrong Email Id"});
     }
 })
-
 
 // creatin api for newcollection
 
@@ -280,3 +375,30 @@ app.post("/upload",upload.single('product'),(req,res)=>{
         image_url:`http://localhost:${port}/image/${req.file.filename}`
     })
 })
+
+
+// for search engine
+
+const ItemSchema = new mongoose.Schema({
+  name: String, 
+});
+
+const Item = mongoose.model('Item', ItemSchema);
+  // Search endpoint using existing Product model
+  app.get('/search', async (req, res) => {
+    const query = req.query.q;
+
+    try {
+        const results = await Product.find({
+            name: { $regex: query, $options: 'i' }
+        });
+        
+        res.json(results);
+    } catch (error) {
+        console.error("Error in search:", error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+  
+  

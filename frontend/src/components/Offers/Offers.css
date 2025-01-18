@@ -48,7 +48,7 @@
 }
 @media(max-width:800px) {
     .offers{
-        margin-top: -50px;
+        width: 100%;
     }
     .offers-left{
         margin-left: -60px;

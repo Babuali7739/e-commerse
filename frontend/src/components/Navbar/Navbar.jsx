@@ -24,7 +24,7 @@ export const Navbar = () => {
       return () => {
           window.removeEventListener('resize', handleResize);
       };
-  }, [isMenuOpen]);
+  }, []);
 
   return (
     <div className='navbar'>

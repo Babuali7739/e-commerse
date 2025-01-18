@@ -56,3 +56,22 @@
     height: 3px;
     background: #c7c7c7;
 }
+
+@media (max-width:800px) {
+    .footer{
+        width: 100%;
+    }
+    .footer-logo img{
+        width: 60px;
+    }
+    .footer-logo p{
+        font-size: 25px;
+    }
+    .footer-logo{
+        align-items: center;
+    }
+    .footer{
+        margin-top: 10%;
+    
+    }
+}
