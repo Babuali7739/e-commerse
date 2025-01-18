@@ -21,7 +21,7 @@ app.use(cors(
 
     }
 ));
-mongoose.connect("mongodb://localhost:27017/ecommerce").then(()=>{
+mongoose.connect("mongodb+srv://babuali7739:babuali7739@cluster0.2ay6b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
     console.log("monggose conneted");
 })
 
