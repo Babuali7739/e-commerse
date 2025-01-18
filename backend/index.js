@@ -14,12 +14,12 @@ const { Console, error } = require("console");
 // creat connection with mongodb
 app.use(express.json());
 app.use(cors(
-    {
-        origin:["https://e-commerse-rosy.vercel.app"],
-        methods:["POST","GET"],
-        credentials: true
+    // {
+    //     origin:["http://localhost:8000"],
+    //     methods:["POST","GET"],
+    //     credentials: true
 
-    }
+    // }
 ));
 mongoose.connect("mongodb+srv://babuali7739:BAbuali@cluster0.2ay6b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
     console.log("monggose conneted");
