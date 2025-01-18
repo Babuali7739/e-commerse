@@ -31,40 +31,45 @@ app.get("/",(rec,res)=>{
 })
 
 // schema for creatimg products
-const Product = mongoose.model("Product",{
-    id : {
-        type:Number,
-        require:true,
+const productSchema = new mongoose.Schema({
+    id: {
+      type: Number,
+      required: true,
     },
-    name:{
-        type:String,
-        require:true,
+    name: {
+      type: String,
+      required: true,
     },
-    image:{
-        type:String,
-        require:true
+    image: {
+      type: String,
+      required: true,
     },
-    category:{
-        type:String,
-        require:true,
+    category: {
+      type: String,
+      required: true,
     },
-    new_price:{
-        type:Number,
-        require:true,
+    new_price: {
+      type: Number,
+      required: true,
     },
-    old_price:{
-        type:Number,
-        require:true,
+    old_price: {
+      type: Number,
+      required: true,
     },
-    date:{
-        type:Date,
-        default:Date.now,
+    date: {
+      type: Date,
+      default: Date.now,
     },
-    avilable:{
-        type:Boolean,
-        default:true,
-    }
-})
+    available: {
+      type: Boolean,
+      default: true,
+    },
+  });
+  
+  // Check if the model already exists
+  const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+  
+  module.exports = Product;
 
 app.post('/addproduct',async (req,res)=>{
     let products = await Product.find({});
