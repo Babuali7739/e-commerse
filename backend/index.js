@@ -68,7 +68,6 @@ const productSchema = new mongoose.Schema({
   
   // Check if the model already exists
   const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
-  
   module.exports = Product;
 
 app.post('/addproduct',async (req,res)=>{
@@ -368,11 +367,11 @@ app.listen(port,(error)=>
 
 // image storage
 const storages = multer.diskStorage({
-    destination: './upload/images',
+    destination: '/tmp',
     filename:(req,file,cb)=>{
         return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
     }
-})
+});
 
 
 // use to upload image
@@ -382,9 +381,9 @@ app.use('/image',express.static('upload/images'))
 app.post("/upload",upload.single('product'),(req,res)=>{
     res.json({
         success:1,
-        image_url:`http://localhost:${port}/image/${req.file.filename}`
-    })
-})
+        image_url:`http://${req.hostname}/image/${req.file.filename}`
+    });
+});
 
 
 // for search engine
