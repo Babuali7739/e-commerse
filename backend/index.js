@@ -123,7 +123,7 @@ app.get('/allproducts',async(req,res)=>{
 })
 
 // schema creating for user model
-const Users = mongoose.model('Users', {
+const usersSchema = new mongoose.Schema({
     name:{
         type:String,
     },
@@ -142,8 +142,11 @@ const Users = mongoose.model('Users', {
         default:Date.now,
     },
 })
+const Users = mongoose.models.Users || mongoose.model('Users', usersSchema);
+  module.exports = Users;
+
     // schemma for admin
-    const Admin = mongoose.model("Admin", {
+    const adminSchema =new mongoose.Schema({
         username: {
         type: String,
         required: true,
@@ -159,6 +162,8 @@ const Users = mongoose.model('Users', {
             unique:true,
         }
     });
+    const Admin = mongoose.models.Admin || mongoose.model('Admin', adminSchema);
+     module.exports = Admin;
 
     // Admin login endpoint
     app.post('/admin/login', async (req, res) => {
@@ -387,8 +392,9 @@ app.post("/upload",upload.single('product'),(req,res)=>{
 const ItemSchema = new mongoose.Schema({
   name: String, 
 });
-
-const Item = mongoose.model('Item', ItemSchema);
+  
+const Item = mongoose.models.Product || mongoose.model('Item', ItemSchema);
+module.exports = Item;
   // Search endpoint using existing Product model
   app.get('/search', async (req, res) => {
     const query = req.query.q;
