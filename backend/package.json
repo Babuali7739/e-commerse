@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "@vercel/node index.js"
+    "build": "node index.js"
   },
   "author": "",
   "license": "ISC",
