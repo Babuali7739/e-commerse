@@ -17,6 +17,7 @@ app.use(cors(
     // {
     //     origin:["https://e-commerse-rosy.vercel.app/"],
     //     methods:["POST","GET"],
+
     //     credentials: true
 
     // }
