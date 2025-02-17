@@ -1,6 +1,6 @@
 import React,{useState}from 'react'
 import Navbar from './components/Navbar/Navbar'
-import Admin from './pages/admin/Admin'
+import Admin from './pages/Admin/Admin'
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
