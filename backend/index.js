@@ -22,7 +22,7 @@ app.use(cors(
 
     // }
 ));
-mongoose.connect("mongodb+srv://babuali7739:BAbuali@cluster0.2ay6b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>{
+mongoose.connect("mongodb://localhost:27017").then(()=>{
     console.log("monggose conneted");
 })
 
