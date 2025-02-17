@@ -11,16 +11,6 @@
         "src": "/(.*)",
         "dest": "/index.js" 
       }
-    ],
-    "env": {
-      "NODE_ENV": "production" 
-    },
-    "functions": {
-      "api/**/*.js": {
-        "runtime": "nodejs16.x"
-      }
-    },
-    "buildCommand": "npm run build", 
-    "outputDirectory": "dist"
+    ]
   
 }  
